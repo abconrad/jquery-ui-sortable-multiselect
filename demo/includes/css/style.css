@@ -1,0 +1,120 @@
+#container {
+    width: 790px;
+    background-color: white;
+    clear: both;
+    overflow: auto;
+}
+
+body {
+    background: #fff;
+    font: normal normal 13px Helvetica;
+    font-size: 14px;
+    color: #444;
+}
+
+.box {
+    width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: #ddd solid 2px;
+    clear: both;
+    overflow: hidden;
+    color: #000;
+}
+
+.item-box {
+    border: black solid thin;
+    width: 130px;
+    height: 130px;
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    margin-bottom: 200px;
+    background-color: #eee;
+}
+
+h2 {
+    margin: 0;
+    margin-top: 45px;
+    font-size: 20px;
+    color: #2fa2db;
+}
+
+h1 {
+    padding-top: 20px;
+    font-size: 32px;
+    border-bottom: #ddd solid 10px;
+}
+
+h4 {
+    font-size: 16px;
+    margin: 0;
+    margin-top: 10px;
+}
+
+a {
+    color: #2fa2db;
+}
+
+a:hover {
+    color: #aaa;
+}
+
+code {
+    background-color: #eee;
+    padding: 2px;
+    font-family: monospace;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    background-color: #eee;
+}
+
+th, td {
+    border: #ddd solid 2px;
+    padding: 5px;
+    text-align: left;
+}
+
+.attr-option, .attr-event, .attr-method {
+    width: 120px;
+}
+
+.attr-default {
+    min-width: 75px;
+}
+
+pre.prettyprint {
+    margin: 0;
+}
+
+/*Sortable Style Changer Demo*/
+
+.ul-container {
+    clear: both;
+    overflow: auto;
+}
+
+.button-container {
+    margin-bottom: 10px;
+}
+
+.box ul { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0 0 2.5em; 
+    float: left; 
+    margin-right: 10px; 
+}
+
+.box li, .box li { 
+    margin: 0 5px 5px 5px; 
+    padding: 5px; 
+    font-size: 1.2em; 
+    width: 120px; 
+}

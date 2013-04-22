@@ -1,0 +1,592 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Sortable Multiselect | A jQuery Sortable Extension</title>
+        
+        <link rel="stylesheet" href="includes/css/style.css" />
+        <link rel="stylesheet" href="includes/cupertino/jquery-ui-1.8.20.custom.css" />
+        
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=desert"></script>
+        <script src="../src/js/jquery.ui.sortable.multiselect.js"></script>
+        <script src="../src/js/jquery.ui.touch.js"></script>
+        
+        <script type="text/javascript">
+            (function($) {
+                $(document).ready(function() {
+                    var buttonContainer = $('<div/>')
+                            .addClass('button-container'),
+                        button = $('<div/>')
+                            .html('Show Hidden Multiselects')
+                            .button()
+                            .click(function () {
+                                $('select').show();
+                            });
+                    
+                    buttonContainer.append(button);
+                    $('.ul-container').after(buttonContainer);
+                    
+                    //demo #1
+                    $( "#sortable1" ).sortable({
+                        connectWith:        ".connectedSortable1",
+                        connectMultiSelect: "#multiselect1"
+                    }).disableSelection();
+                    
+                    $( "#sortable2" ).sortable({
+                        connectWith:        ".connectedSortable1",
+                        connectMultiSelect: "#multiselect2"
+                    }).disableSelection();
+                    
+                    //demo #2
+                    $( "#sortable3" ).sortable({
+                        connectWith:        ".connectedSortable2",
+                        connectMultiSelect: "#multiselect3"
+                    }).disableSelection();
+                    
+                    $( "#sortable4" ).sortable({
+                        connectWith:        ".connectedSortable2",
+                        connectMultiSelect: "#multiselect4"
+                    }).disableSelection();
+                    
+                    //demo #3
+                    $( "#sortable5" ).sortable({
+                        connectWith:        ".connectedSortable3",
+                        connectMultiSelect: "#multiselect5",
+                        selectrecieve:      function (e, ui) {
+                            alert('I (multiselect5) recieved an item!');
+                        },
+                        selectremove:      function (e, ui) {
+                            alert('I (multiselect5) lost an item!');
+                        }
+                    }).disableSelection();
+                    
+                    $( "#sortable6" ).sortable({
+                        connectWith:        ".connectedSortable3",
+                        connectMultiSelect: "#multiselect6"
+                    }).disableSelection();
+                    
+                    //demo #4
+                    $( "#sortable7" ).sortable({
+                        connectWith:        ".connectedSortable4",
+                        connectMultiSelect: "#multiselect7"
+                    }).disableSelection();
+                    
+                    $( "#sortable8" ).sortable({
+                        connectWith:        ".connectedSortable4",
+                        connectMultiSelect: "#multiselect8"
+                    }).disableSelection();
+                    
+                    $( "#sortable7, #sortable8" ).on(
+                        "sortselectrecieve", 
+                        function (e, ui) {
+                            alert("multiselect7 or multiselect8 recieved an item!");
+                        }
+                    );
+                });
+            })(jQuery);
+        </script>
+    </head>
+    <body>
+        <div id="page">
+            <div id="container">
+                <a name="what"></a>
+                <h1>What is It?</h1>
+                <p>
+                    This is a tiny extension of jQuery UI Sortable.  By default
+                    the sortable works off an unordered list.  This is great
+                    but it doesn't offer any options to integrate the element
+                    into a form.
+                </p>
+                <p>
+                    This extension gives you an option to connect a HTML
+                    multiselect element to the sortable element.  This allows
+                    you to easily submit the values from one or more sortable
+                    lists with the rest of a HTML form.
+                </p>
+                <ul>
+                    <li>
+                        Current Version: 0.1 (4-22-2013)
+                    </li>
+                    <li>
+                        <a href="http://github.com/abconrad/jquery-ui-sortable-multiselect" target="_blank">Follow This Project on GitHub</a>
+                    </li>
+                    <li>
+                        Download the
+                        <a href="http://raw.github.com/abconrad/jquery-ui-sortable-multiselect/master/src/js/jquery.ui.sortable.multiselect.js" target="_blank">full source code</a>
+                        or the 
+                        <a href="http://raw.github.com/abconrad/jquery-ui-sortable-multiselect/master/src/js/jquery.ui.sortable.multiselect.min.js" target="_blank">minified source code</a>,
+                    </li>
+                    <li>
+                        Download the 
+                        <a href="https://github.com/abconrad/jquery-ui-sortable-multiselect/blob/master/demo.zip?raw=true" target="_blank">Demo</a>
+                    </li>
+                    <li>
+                        Please report any bugs on the 
+                        <a href="http://github.com/abconrad/jquery-ui-sortable-multiselect/issues" target="_blank">issue tracker</a>
+                    </li>
+                </ul>
+                
+                <a name="demos"></a>
+                <h1>Demos</h1>
+                
+                <a name="multiselectvals"></a>
+                <h2>Connected Multiselects Using Multiselect Values</h2>
+                <p>
+                    Sort items from one list into another and vice versa, by 
+                    passing a selector into the 
+                    <code>connectWith</code> option.
+                </p>
+                <p>
+                    Connect the multiselect elements with the 
+                    <code>connectMultiSelect</code> option.  Anytime an item
+                    is added, removed or sorted in the sortable element the 
+                    same will happen in the multiselect element.
+                </p>
+                <p>
+                    The sortable elements get populated using the 
+                    <code>option</code>s in the <code>select</code>
+                    elements which are selected using the value set in the
+                    <code>connectMultiSelect</code> option.
+                </p>
+                <p>
+                    <code>data-li-class</code> is used to
+                    apply a style to the list items in the sortable element.
+                </p>
+                <div class="box">
+                    <div class="ul-container">
+                        <ul id="sortable1" class="connectedSortable1 ui-sortable"></ul>
+                        <ul id="sortable2" class="connectedSortable1 ui-sortable"></ul>
+                    </div>
+                    <div class="select-container">
+                        <select id="multiselect1" name="multiselect1" multiple>
+                            <option value="list-a-item-1" data-li-class="ui-state-default">List A Item 1</option>
+                            <option value="list-a-item-2" data-li-class="ui-state-default">List A Item 2</option>
+                            <option value="list-a-item-3" data-li-class="ui-state-default">List A Item 3</option>
+                            <option value="list-a-item-4" data-li-class="ui-state-default">List A Item 4</option>
+                            <option value="list-a-item-5" data-li-class="ui-state-default">List A Item 5</option>
+                        </select>
+                        <select id="multiselect2" name="multiselect2" multiple>
+                            <option value="list-b-item-1" data-li-class="ui-state-highlight">List B Item 1</option>
+                            <option value="list-b-item-2" data-li-class="ui-state-highlight">List B Item 2</option>
+                            <option value="list-b-item-3" data-li-class="ui-state-highlight">List B Item 3</option>
+                            <option value="list-b-item-4" data-li-class="ui-state-highlight">List B Item 4</option>
+                            <option value="list-b-item-5" data-li-class="ui-state-highlight">List B Item 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Connected Multiselects Using Multiselec Values
+    $( "#sortable1" ).sortable({
+        connectWith:        ".connectedSortable1",
+        connectMultiSelect: "#multiselect1"
+    }).disableSelection();
+
+    $( "#sortable2" ).sortable({
+        connectWith:        ".connectedSortable1",
+        connectMultiSelect: "#multiselect2"
+    }).disableSelection();
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;div class=&quot;ul-container&quot;&gt;
+        &lt;ul id=&quot;sortable1&quot; class=&quot;connectedSortable1 ui-sortable&quot;&gt;&lt;/ul&gt;
+        &lt;ul id=&quot;sortable2&quot; class=&quot;connectedSortable1 ui-sortable&quot;&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;select-container&quot;&gt;
+        &lt;select id=&quot;multiselect1&quot; name=&quot;multiselect1&quot; multiple&gt;
+            &lt;option value=&quot;list-a-item-1&quot; data-li-class=&quot;ui-state-default&quot;&gt;List A Item 1&lt;/option&gt;
+            &lt;option value=&quot;list-a-item-2&quot; data-li-class=&quot;ui-state-default&quot;&gt;List A Item 2&lt;/option&gt;
+            &lt;option value=&quot;list-a-item-3&quot; data-li-class=&quot;ui-state-default&quot;&gt;List A Item 3&lt;/option&gt;
+            &lt;option value=&quot;list-a-item-4&quot; data-li-class=&quot;ui-state-default&quot;&gt;List A Item 4&lt;/option&gt;
+            &lt;option value=&quot;list-a-item-5&quot; data-li-class=&quot;ui-state-default&quot;&gt;List A Item 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id=&quot;multiselect2&quot; name=&quot;multiselect2&quot; multiple&gt;
+            &lt;option value=&quot;list-b-item-1&quot; data-li-class=&quot;ui-state-highlight&quot;&gt;List B Item 1&lt;/option&gt;
+            &lt;option value=&quot;list-b-item-2&quot; data-li-class=&quot;ui-state-highlight&quot;&gt;List B Item 2&lt;/option&gt;
+            &lt;option value=&quot;list-b-item-3&quot; data-li-class=&quot;ui-state-highlight&quot;&gt;List B Item 3&lt;/option&gt;
+            &lt;option value=&quot;list-b-item-4&quot; data-li-class=&quot;ui-state-highlight&quot;&gt;List B Item 4&lt;/option&gt;
+            &lt;option value=&quot;list-b-item-5&quot; data-li-class=&quot;ui-state-highlight&quot;&gt;List B Item 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+                    </pre>
+                </div>
+                
+                <a name="sortablevals"></a>
+                <h2>Connected Multiselects Using Sortable Values</h2>
+                <p>
+                    Sort items from one list into another and vice versa, by 
+                    passing a selector into the 
+                    <code>connectWith</code> option.
+                </p>
+                <p>
+                    Connect the multiselect elements with the 
+                    <code>connectMultiSelect</code> option.  Anytime an item
+                    is added, removed or sorted in the sortable element the 
+                    same will happen in the multiselect element.
+                </p>
+                <p>
+                    If there are no <code>option</code>s in the
+                    <code>select</code> element specified by the the 
+                    <code>connectMultiSelect</code> option it is populated
+                    using the list items in the sortable element.
+                </p>
+                <p>
+                    <code>data-select-val</code> is used to 
+                    set the value of the corresponding <code>option</code>.
+                </p>
+                <div class="box">
+                    <div class="ul-container">
+                        <ul id="sortable3" class="connectedSortable2 ui-sortable">
+                            <li class="ui-state-default" data-select-val="list-a-item-1">List A Item 1</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-2">List A Item 2</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-3">List A Item 3</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-4">List A Item 4</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-5">List A Item 5</li>
+                        </ul>
+                        <ul id="sortable4" class="connectedSortable2 ui-sortable">
+                            <li class="ui-state-highlight" data-select-val="list-b-item-1">List B Item 1</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-2">List B Item 2</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-3">List B Item 3</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-4">List B Item 4</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-5">List B Item 5</li>
+                        </ul>
+                    </div>
+                    <div class="select-container">
+                        <select id="multiselect3" name="multiselect3" multiple></select>
+                        <select id="multiselect4" name="multiselect4" multiple></select>
+                    </div>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Connected Multiselects Using Sortable Values
+    $( "#sortable3" ).sortable({
+        connectWith:        ".connectedSortable2",
+        connectMultiSelect: "#multiselect3"
+    }).disableSelection();
+
+    $( "#sortable4" ).sortable({
+        connectWith:        ".connectedSortable2",
+        connectMultiSelect: "#multiselect4"
+    }).disableSelection();
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;div class=&quot;ul-container&quot;&gt;
+        &lt;ul id=&quot;sortable3&quot; class=&quot;connectedSortable2 ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-1&quot;&gt;List A Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-2&quot;&gt;List A Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-3&quot;&gt;List A Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-4&quot;&gt;List A Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-5&quot;&gt;List A Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;ul id=&quot;sortable4&quot; class=&quot;connectedSortable2 ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-1&quot;&gt;List B Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-2&quot;&gt;List B Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-3&quot;&gt;List B Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-4&quot;&gt;List B Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-5&quot;&gt;List B Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;select-container&quot;&gt;
+        &lt;select id=&quot;multiselect3&quot; name=&quot;multiselect3&quot; multiple&gt;&lt;/select&gt;
+        &lt;select id=&quot;multiselect4&quot; name=&quot;multiselect4&quot; multiple&gt;&lt;/select&gt;
+    &lt;/div&gt;
+                    </pre>
+                </div>
+                
+                <a name="custom"></a>
+                <h2>Custom Functionality after Select is Updated</h2>
+                <p>
+                    Sort items from one list into another and vice versa, by 
+                    passing a selector into the 
+                    <code>connectWith</code> option.  Call a custom function 
+                    after <code>select</code> element is updated. This is done 
+                    by passing <code>stylechange</code> as a callback function.
+                </p>
+                <p>
+                    Connect the multiselect elements with the 
+                    <code>connectMultiSelect</code> option.  Anytime an item
+                    is added, removed or sorted in the sortable element the 
+                    same will happen in the multiselect element.
+                </p>
+                <p>
+                    If there are no <code>option</code>s in the
+                    <code>select</code> element specified by the the 
+                    <code>connectMultiSelect</code> option it is populated
+                    using the list items in the sortable element.
+                </p>
+                <p>
+                    <code>data-select-val</code> is used to 
+                    set the value of the corresponding <code>option</code>.
+                </p>
+                <div class="box">
+                    <div class="ul-container">
+                        <ul id="sortable5" class="connectedSortable3 ui-sortable">
+                            <li class="ui-state-default" data-select-val="list-a-item-1">List A Item 1</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-2">List A Item 2</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-3">List A Item 3</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-4">List A Item 4</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-5">List A Item 5</li>
+                        </ul>
+                        <ul id="sortable6" class="connectedSortable3 ui-sortable">
+                            <li class="ui-state-highlight" data-select-val="list-b-item-1">List B Item 1</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-2">List B Item 2</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-3">List B Item 3</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-4">List B Item 4</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-5">List B Item 5</li>
+                        </ul>
+                    </div>
+                    <div class="select-container">
+                        <select id="multiselect5" name="multiselect5" multiple></select>
+                        <select id="multiselect6" name="multiselect6" multiple></select>
+                    </div>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Custom Functionality after Transition
+    $( "#sortable5" ).sortable({
+        connectWith:        ".connectedSortable3",
+        connectMultiSelect: "#multiselect5",
+        selectrecieve:      function (e, ui) {
+            alert('I (multiselect5) recieved an item!');
+        },
+        selectremove:      function (e, ui) {
+            alert('I (multiselect5) lost an item!');
+        }
+    }).disableSelection();
+
+    $( "#sortable6" ).sortable({
+        connectWith:        ".connectedSortable3",
+        connectMultiSelect: "#multiselect6"
+    }).disableSelection();
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;div class=&quot;ul-container&quot;&gt;
+        &lt;ul id=&quot;sortable5&quot; class=&quot;connectedSortable3 ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-1&quot;&gt;List A Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-2&quot;&gt;List A Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-3&quot;&gt;List A Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-4&quot;&gt;List A Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-5&quot;&gt;List A Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;ul id=&quot;sortable6&quot; class=&quot;connectedSortable3 ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-1&quot;&gt;List B Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-2&quot;&gt;List B Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-3&quot;&gt;List B Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-4&quot;&gt;List B Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-5&quot;&gt;List B Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;select-container&quot;&gt;
+        &lt;select id=&quot;multiselect5&quot; name=&quot;multiselect5&quot; multiple&gt;&lt;/select&gt;
+        &lt;select id=&quot;multiselect6&quot; name=&quot;multiselect6&quot; multiple&gt;&lt;/select&gt;
+    &lt;/div&gt;
+                    </pre>
+                </div>
+                
+                <a name="event"></a>
+                <h2>Custom Functionality after the Select is Updated from Trigger</h2>
+                <p>
+                    Sort items from one list into another and vice versa, by 
+                    passing a selector into the 
+                    <code>connectWith</code> option. Call a custom function 
+                    after the <code>select</code> element is updated
+                    from a the <code>selectrecieve</code> trigger.
+                </p>
+                <div class="box">
+                    <div class="ul-container">
+                        <ul id="sortable7" class="connectedSortable4 ui-sortable">
+                            <li class="ui-state-default" data-select-val="list-a-item-1">List A Item 1</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-2">List A Item 2</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-3">List A Item 3</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-4">List A Item 4</li>
+                            <li class="ui-state-default" data-select-val="list-a-item-5">List A Item 5</li>
+                        </ul>
+                        <ul id="sortable8" class="connectedSortable4 ui-sortable">
+                            <li class="ui-state-highlight" data-select-val="list-b-item-1">List B Item 1</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-2">List B Item 2</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-3">List B Item 3</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-4">List B Item 4</li>
+                            <li class="ui-state-highlight" data-select-val="list-b-item-5">List B Item 5</li>
+                        </ul>
+                    </div>
+                    <div class="select-container">
+                        <select id="multiselect7" name="multiselect7" multiple></select>
+                        <select id="multiselect8" name="multiselect8" multiple></select>
+                    </div>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Custom Functionality after Transition from Trigger
+    $( "#sortable7" ).sortable({
+        connectWith:        ".connectedSortable4",
+        connectMultiSelect: "#multiselect7"
+    }).disableSelection();
+
+    $( "#sortable8" ).sortable({
+        connectWith:        ".connectedSortable4",
+        connectMultiSelect: "#multiselect8"
+    }).disableSelection();
+
+    $( "#sortable7, #sortable8" ).on(
+        "sortselectrecieve", 
+        function (e, ui) {
+            alert("multiselect7 or multiselect8 recieved an item!");
+        }
+    );
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;div class=&quot;ul-container&quot;&gt;
+        &lt;ul id=&quot;sortable7&quot; class=&quot;connectedSortable4 ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-1&quot;&gt;List A Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-2&quot;&gt;List A Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-3&quot;&gt;List A Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-4&quot;&gt;List A Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot; data-select-val=&quot;list-a-item-5&quot;&gt;List A Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;ul id=&quot;sortable8&quot; class=&quot;connectedSortable4 ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-1&quot;&gt;List B Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-2&quot;&gt;List B Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-3&quot;&gt;List B Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-4&quot;&gt;List B Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot; data-select-val=&quot;list-b-item-5&quot;&gt;List B Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;select-container&quot;&gt;
+        &lt;select id=&quot;multiselect7&quot; name=&quot;multiselect7&quot; multiple&gt;&lt;/select&gt;
+        &lt;select id=&quot;multiselect8&quot; name=&quot;multiselect8&quot; multiple&gt;&lt;/select&gt;
+    &lt;/div&gt;
+                    </pre>
+                </div>
+                
+                <a name="options"></a>
+                <h1>Options</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class='attr-option'>Option</th>
+                            <th class='attr-description'>Description</th>
+                            <th class='attr-default'>Default</th>
+                        </tr>
+                        <tr>
+                            <td>connectMultiSelect</td>
+                            <td>
+                                jQuery selector used to connect the multiselect
+                                element to the sortable element.
+                            </td>
+                            <td>null</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <a href="http://api.jqueryui.com/sortable/#options" target="_blank">Click here</a>
+                    for a list of the options 
+                    provided by jQuery UI Sortable.
+                </p>
+                
+                <a name="events"></a>
+                <h1>Events</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class='attr-event'>Event</th>
+                            <th class='attr-description'>Description</th>
+                        </tr>
+                        <tr>
+                            <td>selectrecieve</td>
+                            <td>
+                                Fires after the <code>select</code> element has 
+                                received an item.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>selectremove</td>
+                            <td>
+                                Fires after and item is removed from the 
+                                <code>select</code> element.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <a href="http://api.jqueryui.com/sortable/#events" target="_blank">Click here</a>
+                    for a list of the events 
+                    provided by jQuery UI Sortable.
+                </p>
+                
+                <a name="methods"></a>
+                <h1>Methods</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class='attr-method'>Method</th>
+                            <th class='attr-description'>Description</th>
+                        </tr>
+                        <tr>
+                            <td>updateSelect</td>
+                            <td>
+                                If the multiselect exists in the DOM this 
+                                updates its options to match the 
+                                <code>li</code>'s in the 
+                                sortable element.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <a href="http://api.jqueryui.com/sortable/#methods" target="_blank">Click here</a>
+                    for a list of the methods 
+                    provided by jQuery UI Sortable.
+                </p>
+                    
+                <a name="required"></a>
+                <h1>Required Files</h1>
+                <ul>
+                    <li>
+                        <strong>jquery.ui.sortable.multiselect.js</strong>
+                        - jQuery UI Sortable Multiselect
+                    </li>
+                    <li>
+                        <strong>jquery.ui.touch.js</strong>
+                        - Touch Events support for jQuery UI
+                        (if you want this plugin to work on devices)
+                    </li>
+                    <li>
+                        jQuery 1.7.2 or higher
+                    </li>
+                    <li>
+                        jQuery UI 1.9.1 or higher
+                    </li>
+                </ul>
+                <p>
+                    <a href="http://github.com/abconrad/jquery-ui-sortable-multiselect" target="_blank">Follow This Project on GitHub</a>
+                </p>
+                
+            </div>
+        </div>
+
+
+    </body>
+</html>
