@@ -98,10 +98,19 @@ pre.prettyprint {
 .ul-container {
     clear: both;
     overflow: auto;
+    width: 310px;
+    float: left;
+    margin-right: 20px;
 }
 
 .button-container {
     margin-bottom: 10px;
+    float: left;
+    width: 350px;
+}
+
+.box {
+    min-height: 430px;
 }
 
 .box ul { 
