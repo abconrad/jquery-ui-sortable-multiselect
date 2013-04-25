@@ -55,8 +55,8 @@
                     $( "#sortable5" ).sortable({
                         connectWith:        ".connectedSortable3",
                         connectMultiSelect: "#multiselect5",
-                        selectrecieve:      function (e, ui) {
-                            alert('I (multiselect5) recieved an item!');
+                        selectreceive:      function (e, ui) {
+                            alert('I (multiselect5) received an item!');
                         },
                         selectremove:      function (e, ui) {
                             alert('I (multiselect5) lost an item!');
@@ -80,9 +80,9 @@
                     }).disableSelection();
                     
                     $( "#sortable7, #sortable8" ).on(
-                        "sortselectrecieve", 
+                        "sortselectreceive", 
                         function (e, ui) {
-                            alert("multiselect7 or multiselect8 recieved an item!");
+                            alert("multiselect7 or multiselect8 received an item!");
                         }
                     );
                 });
@@ -108,7 +108,7 @@
                 </p>
                 <ul>
                     <li>
-                        Current Version: 0.1 (4-22-2013)
+                        Current Version: 0.2 (4-24-2013)
                     </li>
                     <li>
                         <a href="http://github.com/abconrad/jquery-ui-sortable-multiselect" target="_blank">Follow This Project on GitHub</a>
@@ -361,8 +361,8 @@
     $( "#sortable5" ).sortable({
         connectWith:        ".connectedSortable3",
         connectMultiSelect: "#multiselect5",
-        selectrecieve:      function (e, ui) {
-            alert('I (multiselect5) recieved an item!');
+        selectreceive:      function (e, ui) {
+            alert('I (multiselect5) received an item!');
         },
         selectremove:      function (e, ui) {
             alert('I (multiselect5) lost an item!');
@@ -408,7 +408,7 @@
                     passing a selector into the 
                     <code>connectWith</code> option. Call a custom function 
                     after the <code>select</code> element is updated
-                    from a the <code>selectrecieve</code> trigger.
+                    from a the <code>selectreceive</code> trigger.
                 </p>
                 <div class="box">
                     <div class="ul-container">
@@ -448,9 +448,9 @@
     }).disableSelection();
 
     $( "#sortable7, #sortable8" ).on(
-        "sortselectrecieve", 
+        "sortselectreceive", 
         function (e, ui) {
-            alert("multiselect7 or multiselect8 recieved an item!");
+            alert("multiselect7 or multiselect8 received an item!");
         }
     );
                     </pre>
@@ -515,7 +515,7 @@
                             <th class='attr-description'>Description</th>
                         </tr>
                         <tr>
-                            <td>selectrecieve</td>
+                            <td>selectreceive</td>
                             <td>
                                 Fires after the <code>select</code> element has 
                                 received an item.
@@ -526,6 +526,12 @@
                             <td>
                                 Fires after and item is removed from the 
                                 <code>select</code> element.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>selectstop</td>
+                            <td>
+                                Fires after and item has been dropped.
                             </td>
                         </tr>
                     </tbody>
