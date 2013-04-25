@@ -88,7 +88,7 @@
 
             self.updateSelect();
             onSelectReceive();
-            self._trigger('selectrecieve', e, ui);
+            self._trigger('selectreceive', e, ui);
         },
         /**
          * Convenience method for self.updateSelect
