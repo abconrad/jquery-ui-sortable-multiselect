@@ -46,19 +46,63 @@
 
             //Global vars
             self.multiSelect = $(o.connectMultiSelect);
+            self.userReceive = o.receive || $.noop;
+            self.userRemove = o.remove || $.noop;
 
-            el.on('sortreceive', function (e, ui) {
-                self.updateSelect();
-                self._trigger('selectrecieve', e, ui);
-            });
+            // Replace the built in receive callback with our custom
+            // function self._receive()
+            o.receive = function (e, ui) {
+                self._receive(
+                    e,
+                    ui,
+                    function (e, ui) {
+                        self.userReceive(e, ui);
+                    }
+                );
+            };
 
-            el.on('sortremove', function (e, ui) {
-                self.updateSelect();
-                self._trigger('selectremove', e, ui);
-            });
+            // Replace the built in remove callback with our custom
+            // function self._remove()
+            o.remove = function (e, ui) {
+                self._remove(
+                    e,
+                    ui,
+                    function (e, ui) {
+                        self.userRemove(e, ui);
+                    }
+                );
+            };
 
             self._connectMultiSelect();
             self._super();
+        },
+        /**
+         * Convenience method for self.updateSelect
+         * 
+         * @param {event} e
+         * @param {object} ui
+         * @param {callback} onSelectReceive
+         */
+        _receive: function (e, ui, onSelectReceive) {
+            var self = this;
+
+            self.updateSelect();
+            onSelectReceive();
+            self._trigger('selectreceive', e, ui);
+        },
+        /**
+         * Convenience method for self.updateSelect
+         * 
+         * @param {event} e
+         * @param {object} ui
+         * @param {callback} onSelectRemove
+         */
+        _remove: function (e, ui, onSelectRemove) {
+            var self = this;
+
+            self.updateSelect();
+            onSelectRemove();
+            self._trigger('selectremove', e, ui);
         },
         /**
          * If the multi select element exists in the DOM this hides it then
