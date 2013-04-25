@@ -122,7 +122,7 @@
          *
          * @param {event} e
          * @param {object} ui
-         * @param {callback} onSelectRemove
+         * @param {callback} onSelectStop
          */
         _stop: function (e, ui, onSelectStop) {
             var self = this;
