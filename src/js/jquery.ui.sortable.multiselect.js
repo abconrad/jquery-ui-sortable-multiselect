@@ -1,7 +1,7 @@
 /*jslint browser:true, nomen:true, devel:true */
 /*global document, jQuery */
 /*
- * jQuery UI Sortable Connect Multi-Select v0.1
+ * jQuery UI Sortable Connect Multi-Select v0.2
  * Copyright (c) 2013 Bart Conrad
  *
  * http://hippomanager.com/posts/plugins/
