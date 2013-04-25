@@ -61,6 +61,8 @@
                 );
             };
 
+            // Replace the built in remove callback with our custom
+            // function self._remove()
             o.remove = function (e, ui) {
                 self._remove(
                     e,
@@ -74,19 +76,33 @@
             self._connectMultiSelect();
             self._super();
         },
+        /**
+         * Convenience method for self.updateSelect
+         * 
+         * @param {event} e
+         * @param {object} ui
+         * @param {callback} onSelectReceive
+         */
         _receive: function (e, ui, onSelectReceive) {
             var self = this;
 
             self.updateSelect();
-            self._trigger('selectrecieve', e, ui);
             onSelectReceive();
+            self._trigger('selectrecieve', e, ui);
         },
+        /**
+         * Convenience method for self.updateSelect
+         * 
+         * @param {event} e
+         * @param {object} ui
+         * @param {callback} onSelectRemove
+         */
         _remove: function (e, ui, onSelectRemove) {
             var self = this;
 
             self.updateSelect();
-            self._trigger('selectremove', e, ui);
             onSelectRemove();
+            self._trigger('selectremove', e, ui);
         },
         /**
          * If the multi select element exists in the DOM this hides it then
