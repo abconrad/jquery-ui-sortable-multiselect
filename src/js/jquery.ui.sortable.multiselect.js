@@ -48,6 +48,7 @@
             self.multiSelect = $(o.connectMultiSelect);
             self.userReceive = o.receive || $.noop;
             self.userRemove = o.remove || $.noop;
+            self.userStop = o.stop || $.noop;
 
             // Replace the built in receive callback with our custom
             // function self._receive()
@@ -73,12 +74,24 @@
                 );
             };
 
+            // Replace the built in stop callback with our custom
+            // function self._stop()
+            o.stop = function (e, ui) {
+                self._stop(
+                    e,
+                    ui,
+                    function (e, ui) {
+                        self.userStop(e, ui);
+                    }
+                );
+            };
+
             self._connectMultiSelect();
             self._super();
         },
         /**
          * Convenience method for self.updateSelect
-         * 
+         *
          * @param {event} e
          * @param {object} ui
          * @param {callback} onSelectReceive
@@ -92,7 +105,7 @@
         },
         /**
          * Convenience method for self.updateSelect
-         * 
+         *
          * @param {event} e
          * @param {object} ui
          * @param {callback} onSelectRemove
@@ -103,6 +116,20 @@
             self.updateSelect();
             onSelectRemove();
             self._trigger('selectremove', e, ui);
+        },
+        /**
+         * Convenience method for self.updateSelect
+         *
+         * @param {event} e
+         * @param {object} ui
+         * @param {callback} onSelectStop
+         */
+        _stop: function (e, ui, onSelectStop) {
+            var self = this;
+
+            self.updateSelect();
+            onSelectStop();
+            self._trigger('selectstop', e, ui);
         },
         /**
          * If the multi select element exists in the DOM this hides it then
