@@ -118,3 +118,8 @@ pre.prettyprint {
     font-size: 1.2em; 
     width: 120px; 
 }
+
+select {
+    width: 100px;
+    height: 100px;
+}
